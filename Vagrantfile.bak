@@ -1,0 +1,39 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # Especifica la imagen de la caja (Ubuntu 20.04 en este caso)
+  config.vm.box = "ubuntu/focal64"
+
+  # Configuración de red: redirecciona el puerto 80 (guest) al 8081 (host)
+  config.vm.network "forwarded_port", guest: 80, host: 8081, auto_correct: true
+
+  # Configuración de recursos de la máquina virtual
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"  # 2 GB de RAM
+    vb.cpus = 2         # 2 CPUs
+  end
+
+  # Provisionador Chef Zero
+  config.vm.provision "chef_solo", run: "always" do |chef|
+    # Aceptar la licencia de Chef (requerido para Chef 15+)
+    chef.arguments = "--chef-license accept"
+
+    # Ruta a los cookbooks
+    chef.cookbooks_path = "cookbooks"
+
+    # Ruta a los archivos de nodos (opcional, pero recomendado)
+    chef.nodes_path = "nodes"
+
+    # Especifica el cookbook que se usará
+    chef.add_recipe "apache_server::default"
+
+    # Ruta al archivo de atributos (opcional)
+    chef.json = {
+      "apache_server" => {
+        "port": 80,
+        "docroot": "/var/www/html"
+      }
+    }
+  end
+end

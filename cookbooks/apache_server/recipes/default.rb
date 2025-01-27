@@ -1,19 +1,9 @@
-# vagrant-chef-apache
-Apache con chef
+#
+# Cookbook:: apache_server
+# Recipe:: default
+#
+# Copyright:: 2025, The Authors, All Rights Reserved.
 
-# 1. Inicializar Vagrant
-- vagrant init ubuntu/focal64
-- mkdir nodes
-- touch ./nodes/default.json
-
-# 1. Inicializar Chef
-- mkdir cookbooks && cd cookbooks
-- chef generate cookbook apache_server
-
-# 2. Editar receta apache
-- nano cookbooks/apache_server/recipes/default.rb
-- pegar el contenido:
-```
 # Actualiza la lista de paquetes
 apt_update 'update_package_list' do
     action :update
@@ -35,5 +25,5 @@ apt_update 'update_package_list' do
     mode '0644'
     owner 'www-data'
     group 'www-data'
-  end 
-```
+  end
+  
