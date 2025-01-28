@@ -2,17 +2,15 @@
 Apache con chef
 
 # 1. Inicializar Vagrant
-- vagrant init ubuntu/focal64
-- mkdir nodes
-- touch ./nodes/default.json
+```vagrant init ubuntu/focal64```
 
 # 1. Inicializar Chef
-- mkdir cookbooks && cd cookbooks
-- chef generate cookbook apache_server
+```mkdir cookbooks && cd cookbooks```
+```chef generate cookbook apache_server```
 
-# 2. Editar receta apache
-- nano cookbooks/apache_server/recipes/default.rb
-- pegar el contenido:
+# 2. Editar receta apache```
+```nano cookbooks/apache_server/recipes/default.rb```
+pegar el contenido:
 ```
 # Actualiza la lista de paquetes
 apt_update 'update_package_list' do
@@ -37,3 +35,24 @@ apt_update 'update_package_list' do
     group 'www-data'
   end 
 ```
+
+# 3. Iniciar maquina virtual
+```vagrant up```
+
+## En caso de fallar el aprovisionamiento
+```vagrant reload --provision```
+
+## Para acceder a la maquina virtual
+```vagrant ssh```
+
+## Para detener la maquina virtual
+```vagrant halt```
+
+## Para destruir maquina virtual
+```vagrant destroy```
+
+
+# 4. Acceso remoto desde la red local mediante SSH
+```vagrant ssh```
+- se generan las claves en la maquina virtual
+```ssh-keygen```

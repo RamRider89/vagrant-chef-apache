@@ -21,7 +21,7 @@ apt_update 'update_package_list' do
   
   # Crea un archivo HTML de prueba en el directorio raíz de Apache
   file '/var/www/html/index.html' do
-    content '<html><body><h1>¡Hola, mundo!</h1><h2>¡Servidor creado desde chef!</h2></body></html>'
+    content '<html><body><h1>Hola, mundo!</h1><h2>Servidor creado desde chef!</h2></body></html>'
     mode '0644'
     owner 'www-data'
     group 'www-data'
